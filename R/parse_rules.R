@@ -16,13 +16,11 @@
 #' - "CollapsedPatterns": If there are multiple entries in `Patterns`, they are here collapsed into
 #' a single pattern to work with [grepl()].
 parse_rules <- function(system_req_folder) {
-    # if (!dir.exists(system_req_folder))
-
     sysreq_rules_folder <- file.path(system_req_folder, "rules")
     files_with_rules <- list.files(path = sysreq_rules_folder, pattern = "*.json$", full.names = TRUE)
 
     if (length(files_with_rules) == 0)
-        stop("There are no JSON files with rules in", system_req_folder)
+        stop("There are no JSON files with rules in ", system_req_folder)
 
     rules <- lapply(files_with_rules, jsonlite::fromJSON, simplifyVector = TRUE, simplifyDataFrame = FALSE)
     names(rules) <- tools::file_path_sans_ext(basename(files_with_rules))
