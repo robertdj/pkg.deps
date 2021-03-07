@@ -23,5 +23,5 @@ get_package_db <- function(verbose = FALSE) {
 
 
 package_db_cache_location <- function() {
-    file.path(tempdir(), "pkg.sysreq_cache", "package_db.RDS")
+    file.path(tempdir(), "pkg.deps_cache", "package_db.RDS")
 }

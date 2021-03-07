@@ -17,5 +17,5 @@ get_rules <- function(system_req_folder) {
 
 
 rules_cache_location <- function() {
-    file.path(tempdir(), "pkg.sysreq_cache", "rules.RDS")
+    file.path(tempdir(), "pkg.deps_cache", "rules.RDS")
 }
