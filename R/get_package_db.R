@@ -11,7 +11,10 @@ get_package_db <- function(verbose = FALSE) {
             message("Downloading package database from CRAN")
 
         db <- tools::CRAN_package_db()
-        dir.create(dirname(package_db_cache))
+
+        if (!dir.exists(dirname(package_db_cache)))
+            dir.create(dirname(package_db_cache), recursive = TRUE)
+
         saveRDS(db, file = package_db_cache, compress = FALSE)
     }
 
@@ -20,5 +23,5 @@ get_package_db <- function(verbose = FALSE) {
 
 
 package_db_cache_location <- function() {
-    file.path(tempdir(), "pgk.sysreq_cache", "package_db.RDS")
+    file.path(tempdir(), "pkg.sysreq_cache", "package_db.RDS")
 }
