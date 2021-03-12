@@ -2,6 +2,7 @@ pkg.deps
 ========
 
 <!-- badges: start -->
+[![R build status](https://github.com/robertdj/pkg.deps/workflows/R-CMD-check/badge.svg)](https://github.com/robertdj/pkg.deps/actions)
 <!-- badges: end -->
 
 R packages depend on other R packages.

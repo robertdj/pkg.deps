@@ -1,3 +1,6 @@
 ^pkg\.sysreq\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^README\.md$
+^\.github$
+^pkg\.deps\.Rproj$
