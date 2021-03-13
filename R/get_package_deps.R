@@ -23,5 +23,5 @@ get_package_deps <- function(package_name, verbose = FALSE) {
 
     base_packages_info <- utils::installed.packages(priority = "base")
 
-    setdiff(unique_deps, rownames(base_packages_info))
+    setdiff(unique_deps, base_packages_info[, "Package"])
 }
