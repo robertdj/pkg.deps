@@ -4,10 +4,10 @@
 \alias{distro_req}
 \title{Get system requirements from package name}
 \usage{
-distro_req(deps, distro, system_req_folder)
+distro_req(reqs, distro, system_req_folder)
 }
 \arguments{
-\item{deps}{A \code{data.frame} from \code{\link[=get_package_reqs]{get_package_reqs()}} with free-form system requirements.}
+\item{reqs}{A \code{data.frame} from \code{\link[=get_package_reqs]{get_package_reqs()}} with free-form system requirements.}
 
 \item{distro}{\verb{[character]} Name of the Linux distribution.}
 

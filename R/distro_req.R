@@ -3,7 +3,7 @@
 #' This function use RStudio's repository of system requirements: <https://github.com/rstudio/r-system-requirements>.
 #' A local copy/clone of this repository must be available.
 #'
-#' @param deps A `data.frame` from [get_package_reqs()] with free-form system requirements.
+#' @param reqs A `data.frame` from [get_package_reqs()] with free-form system requirements.
 #' @param distro `[character]` Name of the Linux distribution.
 #' @param system_req_folder The location of a local clone of "System Requirements for R Packages".
 #'
@@ -11,7 +11,7 @@
 #' package on `distro`.
 #'
 #' @export
-distro_req <- function(deps, distro, system_req_folder) {
+distro_req <- function(reqs, distro, system_req_folder) {
     rules <- parse_rules(system_req_folder)
     distro_rules <- subset(rules, Distribution == distro)
 
@@ -25,7 +25,7 @@ distro_req <- function(deps, distro, system_req_folder) {
         )
     }
 
-    sysreq_match <- lapply(distro_rules$CollapsedPatterns, grepl, unique(deps$SystemRequirements))
+    sysreq_match <- lapply(distro_rules$CollapsedPatterns, grepl, unique(reqs$SystemRequirements))
     sysreq_index <- which(vapply(sysreq_match, any, logical(1)))
 
     distro_rules[sysreq_index, c("Rule", "Package")]
