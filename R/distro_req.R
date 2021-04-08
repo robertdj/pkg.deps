@@ -13,7 +13,8 @@
 #' @export
 distro_req <- function(reqs, distro, system_req_folder) {
     rules <- parse_rules(system_req_folder)
-    distro_rules <- subset(rules, Distribution == distro)
+    # TODO: Can this with + subset be replaced by a nicer *base R* alternative that keeps CHECK happy?
+    distro_rules <- with(rules, subset(rules, Distribution == distro))
 
     if (nrow(distro_rules) == 0) {
         possible_distros <- unique(rules$Distribution)
