@@ -26,9 +26,9 @@ making Docker images.
 The goal of {pkg.deps} is to help find system requirements for packages
 and their dependencies. I consider two scenarios:
 
-  - I want to install a (new) package and get the free-form
+-   I want to install a (new) package and get the free-form
     `SystemRequirements` of all dependencies.
-  - I want to translate the free-form entries in `SystemRequirements` to
+-   I want to translate the free-form entries in `SystemRequirements` to
     distribution-specific libraries.
 
 The second scenario is relevant because some packages use generic
@@ -50,7 +50,7 @@ The package is only available on GitHub and can be installed with the
 remotes::install_github("robertdj/pkg.deps")
 ```
 
-## Example
+## Example 1
 
 There are three functions in {pkg.deps}. The first function simply
 returns all non-base dependencies:
@@ -66,8 +66,8 @@ free-form, that is, as they appear in their `DESCRIPTION` files:
 ``` r
 pkg.deps::get_package_reqs("httr")
 #>       Package                                           SystemRequirements
-#> 2868     curl libcurl: libcurl-devel (rpm) or\nlibcurl4-openssl-dev (deb).
-#> 10282 openssl                                             OpenSSL >= 1.0.1
+#> 2880     curl libcurl: libcurl-devel (rpm) or\nlibcurl4-openssl-dev (deb).
+#> 10334 openssl                                             OpenSSL >= 1.0.1
 ```
 
 The output is a subset of a dataframe, so it also includes row numbers.
@@ -98,3 +98,26 @@ pkg.deps::distro_req(reqs, "redhat", "../r-system-requirements")
 I am not trying anything fancy to help with `r-system-requirements` –
 `distro_req` simply fails if the JSON files with rules are not in the
 expected location.
+
+# Example 2
+
+In an R(Studio) project that is not a package there is no base R way of
+keeping track of dependencies. The [{renv}
+package](https://cran.r-project.org/package=renv) can help out with a
+formal tracking and it has a function for *discovering* dependencies:
+
+``` r
+deps <- renv::dependencies()
+#> Finding R package dependencies ... Done!
+```
+
+Here I am running it in the {pkg.deps} package itself and the
+dependencies are
+
+``` r
+unique(deps$Package)
+#> [1] "jsonlite"  "tools"     "utils"     "testthat"  "rmarkdown" "knitr"    
+#> [7] "pkg.deps"  "renv"
+```
+
+This vector can be used in `get_package_deps` as in the example above.

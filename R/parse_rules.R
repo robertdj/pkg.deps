@@ -17,6 +17,10 @@
 #' a single pattern to work with [grepl()].
 parse_rules <- function(system_req_folder) {
     sysreq_rules_folder <- file.path(system_req_folder, "rules")
+
+    if (!dir.exists(sysreq_rules_folder))
+        stop(system_req_folder, " does not have a 'rules' subfolder")
+
     files_with_rules <- list.files(path = sysreq_rules_folder, pattern = "*.json$", full.names = TRUE)
 
     if (length(files_with_rules) == 0)

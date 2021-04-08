@@ -49,7 +49,7 @@ The package is only available on GitHub and can be installed with the [remotes p
 remotes::install_github("robertdj/pkg.deps")
 ```
 
-## Example
+## Example 1
 
 There are three functions in {pkg.deps}.
 The first function simply returns all non-base dependencies:
@@ -82,3 +82,21 @@ pkg.deps::distro_req(reqs, "redhat", "../r-system-requirements")
 ```
 
 I am not trying anything fancy to help with `r-system-requirements` -- `distro_req` simply fails if the JSON files with rules are not in the expected location.
+
+
+# Example 2
+
+In an R(Studio) project that is not a package there is no base R way of keeping track of dependencies.
+The [{renv} package](https://cran.r-project.org/package=renv) can help out with a formal tracking and it has a function for *discovering* dependencies:
+
+```{r renv}
+deps <- renv::dependencies()
+```
+
+Here I am running it in the {pkg.deps} package itself and the dependencies are
+
+```{r}
+unique(deps$Package)
+```
+
+This vector can be used in `get_package_deps` as in the example above.
