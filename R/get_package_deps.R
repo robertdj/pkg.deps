@@ -19,9 +19,24 @@ get_package_deps <- function(package_name, verbose = FALSE) {
     )
 
     all_deps <- unlist(package_deps)
-    unique_deps <- unique(all_deps)
+    remove_base_packages(all_deps)
+}
 
+
+#' Remove base packages
+#'
+#' It is common to have base R packages dependencies, but when trying to install a base package in
+#' RStudio you'll get complaints about the package already being loaded.
+#' This function removes the base R packages from the input (if any).
+#'
+#' @inheritParams get_package_deps
+#'
+#' @return The unique entries in `package_name` without base packages (if any).
+#'
+#' @export
+remove_base_packages <- function(package_name)
+{
     base_packages_info <- utils::installed.packages(priority = "base")
 
-    setdiff(unique_deps, base_packages_info[, "Package"])
+    setdiff(unique(package_name), base_packages_info[, "Package"])
 }
