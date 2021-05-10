@@ -66,8 +66,8 @@ free-form, that is, as they appear in their `DESCRIPTION` files:
 ``` r
 pkg.deps::get_package_reqs("httr")
 #>       Package                                           SystemRequirements
-#> 2880     curl libcurl: libcurl-devel (rpm) or\nlibcurl4-openssl-dev (deb).
-#> 10334 openssl                                             OpenSSL >= 1.0.1
+#> 2903     curl libcurl: libcurl-devel (rpm) or\nlibcurl4-openssl-dev (deb).
+#> 10435 openssl                                             OpenSSL >= 1.0.1
 ```
 
 The output is a subset of a dataframe, so it also includes row numbers.
@@ -111,7 +111,7 @@ deps <- renv::dependencies()
 #> Finding R package dependencies ... Done!
 ```
 
-Here I am running it in the {pkg.deps} package itself and the
+Here I am running it in the {pkg.deps} package project itself and the
 dependencies are
 
 ``` r
@@ -120,4 +120,11 @@ unique(deps$Package)
 #> [7] "pkg.deps"  "renv"
 ```
 
-This vector can be used in `get_package_deps` as in the example above.
+This vector can be used in `get_package_deps` as in the example above. A
+final function from {pkg.deps} offers to remove the base R packages so
+that the result is ready for `install.packages`:
+
+``` r
+pkg.deps::remove_base_packages(deps$Package)
+#> [1] "jsonlite"  "testthat"  "rmarkdown" "knitr"     "pkg.deps"  "renv"
+```

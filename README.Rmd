@@ -4,7 +4,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r knitr_options, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -93,10 +93,15 @@ The [{renv} package](https://cran.r-project.org/package=renv) can help out with 
 deps <- renv::dependencies()
 ```
 
-Here I am running it in the {pkg.deps} package itself and the dependencies are
+Here I am running it in the {pkg.deps} package project itself and the dependencies are
 
-```{r}
+```{r unique_deps}
 unique(deps$Package)
 ```
 
 This vector can be used in `get_package_deps` as in the example above.
+A final function from {pkg.deps} offers to remove the base R packages so that the result is ready for `install.packages`:
+
+```{r non_base_deps}
+pkg.deps::remove_base_packages(deps$Package)
+```

@@ -3,3 +3,4 @@
 export(distro_req)
 export(get_package_deps)
 export(get_package_reqs)
+export(remove_base_packages)
