@@ -9,10 +9,13 @@
 #'
 #' @export
 get_package_deps <- function(package_name, verbose = FALSE) {
+    if (isTRUE(verbose))
+        message("Downloading package database")
+
     db <- get_package_db(verbose = verbose)
 
     if (isTRUE(verbose))
-        message("Finding package depedencies")
+        message("Finding package dependencies")
 
     package_deps <- tools::package_dependencies(
         packages = package_name, db = db, which = c("Depends", "Imports"), recursive = TRUE
