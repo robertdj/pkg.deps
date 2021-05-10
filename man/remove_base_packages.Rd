@@ -10,7 +10,7 @@ remove_base_packages(package_name)
 \item{package_name}{\verb{[character]} Name of the package(s).}
 }
 \value{
-\code{package_name} without base packages (if any).
+The unique entries in \code{package_name} without base packages (if any).
 }
 \description{
 It is common to have base R packages dependencies, but when trying to install a base package in
