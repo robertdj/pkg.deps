@@ -13,15 +13,26 @@ test_that("Error when there are no JSON files with rules", {
 })
 
 
-test_that("Parse (subset) of rules", {
-    system_req_folder <- file.path(tempdir(), "pkg.deps_test_rules")
+test_that("Use rules cache", {
+    if (file.exists(rules_cache_location()))
+        unlink(rules_cache_location())
+    on.exit(unlink(rules_cache_location()))
+
+    expect_false(file.exists(rules_cache_location()))
+
+    system_req_folder <- make_sysreq_folder()
+
+    rules <- get_rules(system_req_folder)
+    expect_true(file.exists(rules_cache_location()))
+    rules <- get_rules(system_req_folder)
+})
+
+
+test_that("Get (subset) of rules", {
+    system_req_folder <- make_sysreq_folder()
     on.exit(unlink(system_req_folder, recursive = TRUE))
 
-    # rules.zip contains the files r-system-requirements/rules/z*.json
-    rules_archive <- testthat::test_path("test-files", "rules.zip")
-    unzip(rules_archive, exdir = system_req_folder)
-
-    rules <- parse_rules(system_req_folder)
+    rules <- get_rules(system_req_folder)
 
     expect_named(rules, c("Rule", "Package", "OS", "Distribution", "Patterns", "CollapsedPatterns"))
     expect_gt(nrow(rules), 0)
