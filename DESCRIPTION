@@ -1,6 +1,6 @@
 Package: pkg.deps
 Title: Find package dependencies
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: person("Robert", "Dahl Jacobsen", role = c("aut", "cre"), email = "git@dahl-jacobsen.dk")
 Description: Find package dependencies, including Linux system requirements.
 License: MIT + file LICENSE
