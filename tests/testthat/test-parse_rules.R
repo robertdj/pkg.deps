@@ -1,5 +1,6 @@
 test_that("Error when there is no rules folder", {
-    expect_error(get_rules("foo"), regexp = "foo does not have a 'rules' subfolder")
+    clear_rules_cache()
+    expect_error(parse_rules("foo"), regexp = "foo does not have a 'rules' subfolder")
 })
 
 
@@ -9,21 +10,24 @@ test_that("Error when there are no JSON files with rules", {
     dir.create(file.path(fake_sysreq_folder, "rules"), recursive = TRUE)
     on.exit(unlink(fake_sysreq_folder, recursive = TRUE))
 
+    clear_rules_cache()
     expect_error(get_rules(fake_sysreq_folder), regexp = "There are no JSON files with rules in")
 })
 
 
 test_that("Use rules cache", {
-    if (file.exists(rules_cache_location()))
-        unlink(rules_cache_location())
-    on.exit(unlink(rules_cache_location()))
+    clear_rules_cache()
+    on.exit(clear_rules_cache())
+
+    system_req_folder <- make_sysreq_folder()
+    on.exit(unlink(system_req_folder, recursive = TRUE))
 
     expect_false(file.exists(rules_cache_location()))
 
-    system_req_folder <- make_sysreq_folder()
-
     rules <- get_rules(system_req_folder)
     expect_true(file.exists(rules_cache_location()))
+
+    # Trigger load from cache
     rules <- get_rules(system_req_folder)
 })
 

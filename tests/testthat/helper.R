@@ -8,3 +8,12 @@ make_sysreq_folder <- function()
 
     return(system_req_folder)
 }
+
+
+clear_rules_cache <- function()
+{
+    if (file.exists(rules_cache_location()))
+        unlink(rules_cache_location())
+
+    return(invisible(NULL))
+}
